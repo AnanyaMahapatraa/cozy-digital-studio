@@ -278,17 +278,18 @@
   const shareInput=document.getElementById('shareLink'), copyBtn=document.getElementById('copyLink'), shareStatus=document.getElementById('shareStatus');
   const paramMap=[['o',outerColor],['c',colorInputs.bg],['e',colorInputs.elements],['l',colorInputs.leaves]];
   const isHex=v=>/^[0-9a-f]{6}$/i.test(v||'');
+  const defaults={o:'181818',c:'fffaf6',e:'bd8557',l:'d97732'};
   function buildLink(){
     const p=new URLSearchParams();
-    paramMap.forEach(([k,el])=>p.set(k,el.value.replace('#','').toLowerCase()));
+    // only colours that differ from the defaults go into the link
+    paramMap.forEach(([k,el])=>{const v=el.value.replace('#','').toLowerCase();if(v!==defaults[k])p.set(k,v);});
     let base; try{base=location.origin+location.pathname;}catch(_){base=location.href.split(/[?#]/)[0];}
     if(!base||base==='null'||location.protocol==='file:')base=location.href.split(/[?#]/)[0];
-    return base+'?'+p.toString();
+    const q=p.toString();
+    return q?base+'?'+q:base;
   }
-  function refreshLink(){
-    const url=buildLink(); shareInput.value=url;
-    try{history.replaceState(null,'',url);}catch(_){}
-  }
+  // The address bar is never modified; the shareable link only lives in the panel's copy box.
+  function refreshLink(){shareInput.value=buildLink();}
   // Restore colours from the link (if present), re-using the exact same input handlers
   try{
     const q=new URLSearchParams(location.search);
