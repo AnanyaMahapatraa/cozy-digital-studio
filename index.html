@@ -9,15 +9,15 @@
   * { box-sizing:border-box; }
   html,body { margin:0; width:100%; height:100%; background:var(--outer-bg); overflow:hidden; }
   body { font-family:system-ui,sans-serif; }
-  .widget-shell { position:relative; isolation:isolate; width:100%; min-height:100%; display:flex; align-items:center; justify-content:center; padding:clamp(28px,9vmin,90px) clamp(24px,9vw,120px); background:var(--outer-bg); border-radius:0; transition:background .2s ease; }
-  .studio-card { container-type:inline-size; position:relative; z-index:1; width:100%; max-width:860px; margin:auto; padding:10px; background:var(--scene-bg); border:1px solid rgba(105,67,47,.12); border-radius:22px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
-  .scene { position:relative; width:100%; height:clamp(190px, 48vw, 300px); height:calc(27.5cqw + 36px); min-height:110px; overflow:hidden; border-radius:14px; background:var(--scene-bg); touch-action:manipulation; transition:background .2s ease; }
+  .widget-shell { position:relative; isolation:isolate; width:100%; min-height:100%; display:flex; align-items:center; justify-content:center; padding:12px 6px; background:var(--outer-bg); border-radius:0; transition:background .2s ease; }
+  .studio-card { container-type:inline-size; position:relative; z-index:1; width:100%; margin:auto; padding:10px; background:var(--scene-bg); border:1px solid rgba(105,67,47,.12); border-radius:22px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
+  .scene { position:relative; width:100%; height:clamp(190px, 48vw, 300px); --u:min(1cqw,8.4px); height:calc(27.5 * var(--u) + 36px); min-height:110px; overflow:hidden; border-radius:14px; background:var(--scene-bg); touch-action:manipulation; transition:background .2s ease; }
   .floor { position:absolute; left:2%; right:2%; bottom:22px; height:2px; background:rgba(173,126,82,.65); border-radius:2px; }
-  .zone { position:absolute; bottom:21px; height:auto; cursor:pointer; }
-  .library { left:1%; width:27%; aspect-ratio:190/190; }
-  .desk { left:31%; width:29%; aspect-ratio:200/190; }
+  .zone { position:absolute; bottom:21px; height:auto; cursor:pointer; transform:translateX(-50%); }
+  .library { left:14.5%; width:calc(27 * var(--u)); aspect-ratio:190/190; }
+  .desk { left:45.5%; width:calc(29 * var(--u)); aspect-ratio:200/190; }
   .music { left:61%; width:18%; }
-  .closet { left:80%; width:19%; aspect-ratio:150/190; }
+  .closet { left:89.5%; width:calc(19 * var(--u)); aspect-ratio:150/190; }
   /* Teddy shares the wardrobe's box and viewBox; it is never positioned separately. */
   .hotspot { position:absolute; width:1px; height:1px; margin:0; padding:0; border:0; opacity:0; overflow:hidden; }
   .teddy-layer { z-index:7; }
@@ -66,7 +66,7 @@
   .leaf:nth-of-type(6){left:88%;animation-duration:33s;animation-delay:-17s}
   @keyframes fall { 0%{transform:translate(0,-15px) rotate(0);opacity:0} 8%{opacity:.78} 28%{transform:translate(10px,28vh) rotate(35deg);opacity:.78} 55%{transform:translate(-9px,56vh) rotate(90deg);opacity:.78} 78%{transform:translate(14px,80vh) rotate(145deg);opacity:.7} 100%{transform:translate(-5px,105vh) rotate(190deg);opacity:0} }
   .hint { position:absolute; top:8px; left:0; right:0; text-align:center; font-size:10px; color:rgba(120,87,63,.68); letter-spacing:.06em; pointer-events:none; }
-    @media (max-width:420px) { .widget-shell{padding:clamp(28px,9vmin,60px) 22px}.studio-card{padding:7px;border-radius:18px}}
+    @media (max-width:420px) { .widget-shell{padding:12px 6px}.studio-card{padding:7px;border-radius:18px}}
   @media (prefers-reduced-motion: reduce) { #girl.walking,#girl.running,#girl.stopping,#girl .leg,#girl .arm,.leaf{animation-play-state:paused!important} }
 
   /* v13: smaller character and slower alternating footfall frames */
