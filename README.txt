@@ -1,3 +1,5 @@
-Lore and Living — Version 44
+Cozy Digital Studio
 
-Upload index.html to your GitHub Pages repository. This version only increases the gap between the ukulele and headphones slightly. All other design and interactions are preserved.
+A cozy, interactive digital space featuring dreamy animations, customizable aesthetics, and delightful creative details.
+
+Explore, personalize, and make this little corner of the internet your own!
