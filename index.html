@@ -5,20 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cozy Digital Studio</title>
 <style>
-  :root { --ink:#38271f; --wood:#8d5737; --wood2:#bd8557; --cream:#f3dfbd; --leaf:#d97732; --scene-bg:#fffaf5; --outer-bg:#181818; --element-hue:0deg; --band:#e8b94f; }
+  :root { --ink:#38271f; --wood:#8d5737; --wood2:#bd8557; --cream:#f3dfbd; --leaf:#d97732; --scene-bg:#fffaf6; --outer-bg:#181818; --element-hue:0deg; --band:#e8b94f; }
   * { box-sizing:border-box; }
   html,body { margin:0; width:100%; height:100%; background:var(--outer-bg); overflow:hidden; }
   body { font-family:system-ui,sans-serif; }
   .widget-shell { position:relative; isolation:isolate; width:100%; min-height:100%; display:flex; align-items:center; justify-content:center; padding:clamp(28px,9vmin,90px) clamp(24px,9vw,120px); background:var(--outer-bg); border-radius:0; transition:background .2s ease; }
-  .studio-card { position:relative; z-index:1; width:100%; max-width:860px; margin:auto; padding:10px; background:var(--scene-bg); border:1px solid rgba(105,67,47,.12); border-radius:22px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
-  .scene { position:relative; width:100%; height:clamp(250px, 48vw, 350px); min-height:250px; overflow:hidden; border-radius:14px; background:var(--scene-bg); touch-action:manipulation; transition:background .2s ease; }
+  .studio-card { container-type:inline-size; position:relative; z-index:1; width:100%; max-width:860px; margin:auto; padding:10px; background:var(--scene-bg); border:1px solid rgba(105,67,47,.12); border-radius:22px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
+  .scene { position:relative; width:100%; height:clamp(190px, 48vw, 300px); height:calc(27.5cqw + 36px); min-height:110px; overflow:hidden; border-radius:14px; background:var(--scene-bg); touch-action:manipulation; transition:background .2s ease; }
   .floor { position:absolute; left:2%; right:2%; bottom:22px; height:2px; background:rgba(173,126,82,.65); border-radius:2px; }
-  .zone { position:absolute; bottom:24px; width:28%; height:72%; cursor:pointer; }
-  .library { left:1%; width:27%; }
-  .desk { left:31%; width:29%; }
+  .zone { position:absolute; bottom:21px; height:auto; cursor:pointer; }
+  .library { left:1%; width:27%; aspect-ratio:190/190; }
+  .desk { left:31%; width:29%; aspect-ratio:200/190; }
   .music { left:61%; width:18%; }
-  .closet { left:80%; width:19%; }
+  .closet { left:80%; width:19%; aspect-ratio:150/190; }
   /* Teddy shares the wardrobe's box and viewBox; it is never positioned separately. */
+  .hotspot { position:absolute; width:1px; height:1px; margin:0; padding:0; border:0; opacity:0; overflow:hidden; }
   .teddy-layer { z-index:7; }
   svg.furniture-plain { width:100%; height:100%; overflow:visible; display:block; }
   svg.furniture { width:100%; height:100%; overflow:visible; filter:hue-rotate(var(--element-hue)); }
@@ -39,7 +40,7 @@
   @media (prefers-reduced-motion: reduce) { #girl { animation:none!important; } .leaf { animation-play-state:paused!important; } }
   .leaf { position:absolute; top:-18px; z-index:6; color:var(--leaf); opacity:.85; width:13px; height:16px; animation:fall linear infinite; pointer-events:none; }
   .leaf svg { width:100%; height:100%; display:block; overflow:visible; }
-  .ukulele-customize { position:absolute; z-index:12; left:30%; top:12%; width:9%; height:20%; border:0; padding:0; background:transparent; cursor:pointer; }
+  .ukulele-customize { position:absolute; z-index:12; left:27%; top:2%; width:14%; height:30%; border:0; padding:0; background:transparent; cursor:pointer; }
   .ukulele-customize:focus-visible { outline:2px solid #bd8557; outline-offset:2px; border-radius:8px; }
   .custom-panel { position:absolute; z-index:20; top:8px; right:8px; width:min(230px, 68%); padding:12px; border:1px solid rgba(105,67,47,.25); border-radius:12px; background:rgba(255,248,235,.97); color:#38271f; box-shadow:0 6px 22px rgba(56,39,31,.15); font:12px/1.3 system-ui,sans-serif; }
   .custom-panel[hidden] { display:none; }
@@ -48,6 +49,14 @@
   .color-row { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:7px 0; }
   .color-row label { flex:1; }
   .color-row input[type=color] { width:36px; height:25px; padding:1px; border:1px solid rgba(105,67,47,.25); border-radius:6px; background:white; cursor:pointer; }
+  .custom-panel { max-height:calc(100% - 16px); overflow:auto; }
+  .share-box { margin-top:10px; padding-top:9px; border-top:1px solid rgba(105,67,47,.18); }
+  .share-box label { display:block; font-weight:700; margin-bottom:5px; }
+  .share-row { display:flex; gap:6px; }
+  .share-row input { flex:1; min-width:0; padding:5px 6px; border:1px solid rgba(105,67,47,.25); border-radius:6px; background:#fff; color:#38271f; font:11px system-ui,sans-serif; }
+  .share-row button { border:0; border-radius:6px; padding:5px 10px; background:#8d5737; color:#fff; font:600 11px system-ui,sans-serif; cursor:pointer; white-space:nowrap; }
+  .share-row button:focus-visible { outline:2px solid #bd8557; outline-offset:2px; }
+  .share-status { min-height:13px; margin-top:4px; font-size:10px; color:#8a6b53; }
   .custom-note { margin-top:8px; color:#8a6b53; font-size:10px; }
   .leaf:nth-of-type(1){left:18%;animation-duration:28s;animation-delay:-8s}
   .leaf:nth-of-type(2){left:48%;animation-duration:32s;animation-delay:-19s}
@@ -57,8 +66,7 @@
   .leaf:nth-of-type(6){left:88%;animation-duration:33s;animation-delay:-17s}
   @keyframes fall { 0%{transform:translate(0,-15px) rotate(0);opacity:0} 8%{opacity:.78} 28%{transform:translate(10px,28vh) rotate(35deg);opacity:.78} 55%{transform:translate(-9px,56vh) rotate(90deg);opacity:.78} 78%{transform:translate(14px,80vh) rotate(145deg);opacity:.7} 100%{transform:translate(-5px,105vh) rotate(190deg);opacity:0} }
   .hint { position:absolute; top:8px; left:0; right:0; text-align:center; font-size:10px; color:rgba(120,87,63,.68); letter-spacing:.06em; pointer-events:none; }
-  @media (max-height:220px) { .scene{height:240px}.zone{height:170px} }
-  @media (max-width:420px) { .widget-shell{padding:clamp(28px,9vmin,60px) 22px}.studio-card{padding:7px;border-radius:18px}.scene{height:clamp(250px,58vw,330px);min-height:250px}}
+    @media (max-width:420px) { .widget-shell{padding:clamp(28px,9vmin,60px) 22px}.studio-card{padding:7px;border-radius:18px}}
   @media (prefers-reduced-motion: reduce) { #girl.walking,#girl.running,#girl.stopping,#girl .leg,#girl .arm,.leaf{animation-play-state:paused!important} }
 
   /* v13: smaller character and slower alternating footfall frames */
@@ -136,9 +144,14 @@
   <section class="custom-panel" id="customPanel" aria-label="Studio color customization" hidden>
     <div class="custom-head"><span>Customize your studio</span><button class="custom-close" id="closeCustom" type="button" aria-label="Close customization">×</button></div>
     <div class="color-row"><label for="outerColor">Outside background</label><input id="outerColor" type="color" value="#181818"></div>
-    <div class="color-row"><label for="bgColor">Studio card</label><input id="bgColor" type="color" value="#fffaf5"></div>
+    <div class="color-row"><label for="bgColor">Studio card</label><input id="bgColor" type="color" value="#fffaf6"></div>
     <div class="color-row"><label for="elementColor">Studio elements</label><input id="elementColor" type="color" value="#bd8557"></div>
     <div class="color-row"><label for="leafColor">Falling leaves</label><input id="leafColor" type="color" value="#d97732"></div>
+    <div class="share-box">
+      <label for="shareLink">Your custom link</label>
+      <div class="share-row"><input id="shareLink" type="text" readonly value=""><button id="copyLink" type="button">Copy</button></div>
+      <div class="share-status" id="shareStatus" aria-live="polite"></div>
+    </div>
     <div class="custom-note">Change the outside and studio card colors independently. Tap the ukulele again to reopen this palette.</div>
   </section>
   <div class="zone library" aria-label="Bookshelf and art supplies" role="button" tabindex="0" data-stop="0">
@@ -246,6 +259,7 @@
   const widgetShell=document.getElementById('widgetShell');
   const outerColor=document.getElementById('outerColor');
   outerColor.addEventListener('input',e=>{widgetShell.style.setProperty('--outer-bg',e.target.value);document.documentElement.style.setProperty('--outer-bg',e.target.value);});
+  const hexToRgb=(h)=>{const n=parseInt(h.replace('#',''),16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};};
   const ukuleleButton=document.querySelector('.ukulele-customize');
   const colorInputs={bg:document.getElementById('bgColor'), elements:document.getElementById('elementColor'), leaves:document.getElementById('leafColor')};
   colorInputs.bg.addEventListener('input',e=>{scene.style.setProperty('--scene-bg',e.target.value);studioCard.style.setProperty('--scene-bg',e.target.value);});
@@ -259,6 +273,38 @@
   ukuleleButton.addEventListener('click',e=>{e.stopPropagation();panel.hidden=!panel.hidden;});
   panel.addEventListener('click',e=>e.stopPropagation());
   document.getElementById('closeCustom').addEventListener('click',()=>panel.hidden=true);
+
+  // ---- Custom link: colours are stored in the URL so a customization can be shared and restored ----
+  const shareInput=document.getElementById('shareLink'), copyBtn=document.getElementById('copyLink'), shareStatus=document.getElementById('shareStatus');
+  const paramMap=[['o',outerColor],['c',colorInputs.bg],['e',colorInputs.elements],['l',colorInputs.leaves]];
+  const isHex=v=>/^[0-9a-f]{6}$/i.test(v||'');
+  function buildLink(){
+    const p=new URLSearchParams();
+    paramMap.forEach(([k,el])=>p.set(k,el.value.replace('#','').toLowerCase()));
+    let base; try{base=location.origin+location.pathname;}catch(_){base=location.href.split(/[?#]/)[0];}
+    if(!base||base==='null'||location.protocol==='file:')base=location.href.split(/[?#]/)[0];
+    return base+'?'+p.toString();
+  }
+  function refreshLink(){
+    const url=buildLink(); shareInput.value=url;
+    try{history.replaceState(null,'',url);}catch(_){}
+  }
+  // Restore colours from the link (if present), re-using the exact same input handlers
+  try{
+    const q=new URLSearchParams(location.search);
+    paramMap.forEach(([k,el])=>{const v=q.get(k);if(isHex(v)){el.value='#'+v.toLowerCase();el.dispatchEvent(new Event('input'));}});
+  }catch(_){}
+  paramMap.forEach(([k,el])=>el.addEventListener('input',refreshLink));
+  refreshLink();
+  copyBtn.addEventListener('click',async()=>{
+    const url=shareInput.value; let ok=false;
+    try{await navigator.clipboard.writeText(url);ok=true;}catch(_){
+      try{shareInput.select();shareInput.setSelectionRange(0,url.length);ok=document.execCommand('copy');}catch(__){}
+    }
+    shareStatus.textContent=ok?'Link copied! Open it anywhere to see your colors.':'Press and hold the link to copy it.';
+    if(ok)setTimeout(()=>{shareStatus.textContent='';},2800);
+  });
+  shareInput.addEventListener('focus',()=>shareInput.select());
 
 
   // Character destinations stay in the open studio area; the wardrobe is decorative only.
