@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lore and Living — Little Studio v45</title>
+<title>Cozy Digital Studio</title>
 <style>
   :root { --ink:#38271f; --wood:#8d5737; --wood2:#bd8557; --cream:#f3dfbd; --leaf:#d97732; --scene-bg:#fffaf5; --outer-bg:#181818; --element-hue:0deg; --band:#e8b94f; }
   * { box-sizing:border-box; }
   html,body { margin:0; width:100%; height:100%; background:var(--outer-bg); overflow:hidden; }
   body { font-family:system-ui,sans-serif; }
-  .widget-shell { position:relative; isolation:isolate; width:100%; min-height:100%; padding:14px; background:var(--outer-bg); border-radius:0; transition:background .2s ease; }
-  .studio-card { position:relative; z-index:1; width:100%; padding:10px; background:var(--scene-bg); border:1px solid rgba(105,67,47,.12); border-radius:22px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
+  .widget-shell { position:relative; isolation:isolate; width:100%; min-height:100%; display:flex; align-items:center; justify-content:center; padding:clamp(28px,9vmin,90px) clamp(24px,9vw,120px); background:var(--outer-bg); border-radius:0; transition:background .2s ease; }
+  .studio-card { position:relative; z-index:1; width:100%; max-width:860px; margin:auto; padding:10px; background:var(--scene-bg); border:1px solid rgba(105,67,47,.12); border-radius:22px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
   .scene { position:relative; width:100%; height:clamp(250px, 48vw, 350px); min-height:250px; overflow:hidden; border-radius:14px; background:var(--scene-bg); touch-action:manipulation; transition:background .2s ease; }
   .floor { position:absolute; left:2%; right:2%; bottom:22px; height:2px; background:rgba(173,126,82,.65); border-radius:2px; }
   .zone { position:absolute; bottom:24px; width:28%; height:72%; cursor:pointer; }
@@ -58,7 +58,7 @@
   @keyframes fall { 0%{transform:translate(0,-15px) rotate(0);opacity:0} 8%{opacity:.78} 28%{transform:translate(10px,28vh) rotate(35deg);opacity:.78} 55%{transform:translate(-9px,56vh) rotate(90deg);opacity:.78} 78%{transform:translate(14px,80vh) rotate(145deg);opacity:.7} 100%{transform:translate(-5px,105vh) rotate(190deg);opacity:0} }
   .hint { position:absolute; top:8px; left:0; right:0; text-align:center; font-size:10px; color:rgba(120,87,63,.68); letter-spacing:.06em; pointer-events:none; }
   @media (max-height:220px) { .scene{height:240px}.zone{height:170px} }
-  @media (max-width:420px) { .widget-shell{padding:10px}.studio-card{padding:7px;border-radius:18px}.scene{height:clamp(250px,58vw,330px);min-height:250px}}
+  @media (max-width:420px) { .widget-shell{padding:clamp(28px,9vmin,60px) 22px}.studio-card{padding:7px;border-radius:18px}.scene{height:clamp(250px,58vw,330px);min-height:250px}}
   @media (prefers-reduced-motion: reduce) { #girl.walking,#girl.running,#girl.stopping,#girl .leg,#girl .arm,.leaf{animation-play-state:paused!important} }
 
   /* v13: smaller character and slower alternating footfall frames */
